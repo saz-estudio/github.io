@@ -4844,7 +4844,8 @@ body.search-is-visible .s-header__search-inner {
 }
 
 .entry__title {
-    font-size     : calc(var(--entry-title-size) * var(--text-multiplier));
+    font-size : var(--text-display-1);
+    /* font-size     : calc(var(--entry-title-size) * var(--text-multiplier)); */
     line-height   : 1.12;
     margin-top    : 0;
     margin-bottom : var(--vspace-1);
@@ -5371,4 +5372,23 @@ body.search-is-visible .s-header__search-inner {
     .comment-respond form {
         padding-top : var(--vspace-1);
     }
+}
+
+/* ------------------------------------------------------------------- 
+ * ## portfolio list
+ * ------------------------------------------------------------------- */
+.folio-list {
+    margin-top : calc(var(--vspace-1) * -5.5);
+}
+
+.folio-list .brick {
+    float   : left;
+    width   : 50%;
+    padding : 0;
+    margin  : 0;
+}
+
+.folio-item {
+    overflow : hidden;
+    position : relative;
 }
