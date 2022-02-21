@@ -3065,20 +3065,31 @@ img.u-pull-left {
     color : black;
 }
 
-.bricks-wrapper .entry__meta .cat,
-.bricks-wrapper .entry__meta .byline {
+.bricks-wrapper .entry__meta .precio,
+.bricks-wrapper .entry__meta .dimensiones {
     display : inline-block;
 }
 
-.bricks-wrapper .entry__meta .cat {
+.bricks-wrapper .entry__meta .precio {
     margin-right : .8rem;
 }
 
-.bricks-wrapper .entry__meta .cat a::after {
+.bricks-wrapper .entry__meta .precio::before {
+    color       :  rgb(170, 170, 170);
+    content     : "Precio ";
+}
+
+.bricks-wrapper .entry__meta .dimensiones::before {
+    color       : rgb(170, 170, 170);
+    content     : "Dimensiones ";
+}
+
+
+.bricks-wrapper .entry__meta .precio a::after {
     content : ", ";
 }
 
-.bricks-wrapper .entry__meta .cat a:last-child::after {
+.bricks-wrapper .entry__meta .precio a:last-child::after {
     display : none;
 }
 
