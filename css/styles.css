@@ -3015,13 +3015,10 @@ img.u-pull-left {
     transform : scale(1.05);
 }
 
-.bricks-wrapper .entry__text {
-    padding : var(--vspace-1) 0 calc(var(--vspace-1) + 2px);
-}
-
 .bricks-wrapper .entry__header {
     margin     : 0;
     text-align : left;
+    padding    : var(--vspace-1) 0 calc(var(--vspace-1) + 2px);
 }
 
 .bricks-wrapper .entry__title {
