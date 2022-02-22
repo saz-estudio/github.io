@@ -280,14 +280,14 @@
     * ------------------------------------------------------ */
        const ssAnimateFolioBricks = function() {
 
-        const containerBricks = document.querySelector('.bricks');
+        const containerBricks = document.querySelector('.folio-bricks');
         if (!containerBricks) return;
 
         imagesLoaded(containerBricks, function() {
 
             const msnry = new Masonry(containerBricks, {
-                itemSelector: '.brick',
-                columnWidth: '.brick',
+                itemSelector: '.folio-brick',
+                columnWidth: '.folio-brick',
                 percentPosition: true,
                 resize: true
             });
