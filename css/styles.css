@@ -55,6 +55,9 @@
  *      ## hero slider
  *      ## hero scroll down
  *      ## slide transitions
+ * # PORTFOLIO
+ *      ## portfolio list
+ *      ## bricks-folio 
  * # SITE CONTENT
  *      ## pageheader
  * # FOOTER
@@ -4390,6 +4393,228 @@ body.search-is-visible .s-header__search-inner {
     }
 }
 
+/* ===================================================================
+ * # PORTFOLIO
+ *
+ *
+ * ------------------------------------------------------------------- */
+ .s-portfolio {
+    background : white;
+    min-height : 800px;
+    padding    : 0;
+    position   : relative;
+}
+
+.s-portfolio__header {
+    background-color : #111111;
+    padding-top      : var(--vspace-5);
+    padding-bottom   : calc(6.5 * var(--space));
+}
+
+/* ------------------------------------------------------------------- 
+ * ## portfolio list
+ * ------------------------------------------------------------------- */
+.folio-list {
+    margin-top : calc(var(--vspace-1) * -3.5);
+}
+
+.folio-list .folio-brick {
+    float   : left;
+    width   : 50%;
+    padding : 0;
+    margin  : 0;
+}
+
+.folio-item {
+    overflow : hidden;
+    position : relative;
+}
+
+.folio-item__caption {
+    display : none;
+}
+
+/* thumbnail
+ */
+.folio-item__thumb a {
+    display : block;
+}
+
+.folio-item__thumb a::before {
+    z-index          : 1;
+    content          : "";
+    display          : block;
+    background-color : rgba(0, 0, 0, 0.8);
+    opacity          : 0;
+    visibility       : hidden;
+    position         : absolute;
+    top              : 0;
+    left             : 0;
+    right            : 0;
+    bottom           : 0;
+    width            : 100%;
+    height           : 100%;
+    transition       : all, .5s;
+}
+
+.folio-item__thumb a::after {
+    z-index     : 1;
+    content     : "...";
+    text-align  : center;
+    font-family : var(--font-2);
+    font-weight : 300;
+    font-size   : 2.8rem;
+    color       : white;
+    display     : block;
+    height      : 3.2rem;
+    width       : 3.2rem;
+    line-height : 3.2rem;
+    margin-left : -1.6rem;
+    margin-top  : -3rem;
+    text-align  : center;
+    opacity     : 0;
+    visibility  : hidden;
+    transform   : scale(0.5);
+    transition  : all, 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position    : absolute;
+    left        : 50%;
+    top         : 50%;
+}
+
+.folio-item__thumb img {
+    vertical-align : bottom;
+    margin-bottom  : 0;
+    transition     : all, 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* portfolio info
+ */
+.folio-item__info {
+    z-index    : 2;
+    padding    : 0 8rem 0 var(--vspace-1);
+    transform  : translateY(100%);
+    opacity    : 0;
+    visibility : hidden;
+    transition : all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position   : absolute;
+    left       : 0;
+    top        : var(--vspace-1_25);
+}
+
+.folio-item__title {
+    font-size   : var(--text-size);
+    line-height : 1.25;
+    margin      : 0;
+    color       : white;
+}
+
+.folio-item__cat {
+    font-family   : var(--font-2);
+    font-size     : var(--text-sm);
+    line-height   : 1.5;
+    margin-bottom : 0.2rem;
+    color         : rgba(255, 255, 255, 0.5);
+}
+
+.folio-item__project-link {
+    z-index          : 2;
+    display          : flex;
+    align-items      : center;
+    justify-content  : center;
+    height           : var(--vspace-1_25);
+    width            : var(--vspace-1_25);
+    background-color : transparent;
+    border           : 1px solid rgba(255, 255, 255, 0.3);
+    border-radius    : 5px;
+    opacity          : 0;
+    visibility       : hidden;
+    transform        : translateY(100%);
+    transition       : all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position         : absolute;
+    top              : var(--vspace-1_25);
+    right            : var(--vspace-1_25);
+}
+
+.folio-item__project-link svg {
+    height : var(--vspace-0_625);
+    width  : var(--vspace-0_625);
+}
+
+.folio-item__project-link svg path {
+    fill       : white;
+    transition : all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.folio-item__project-link:focus,
+.folio-item__project-link:hover {
+    background-color : white;
+    border           : 1px solid white;
+}
+
+.folio-item__project-link:focus svg path,
+.folio-item__project-link:hover svg path {
+    fill : black;
+}
+
+/* on hover
+ */
+.folio-item:hover .folio-item__thumb img {
+    transform : scale(1.05);
+}
+
+.folio-item:hover .folio-item__thumb a::before {
+    opacity    : 1;
+    visibility : visible;
+}
+
+.folio-item:hover .folio-item__thumb a::after {
+    opacity    : 1;
+    visibility : visible;
+    transform  : scale(1);
+}
+
+.folio-item:hover .folio-item__info {
+    opacity    : 1;
+    visibility : visible;
+    transform  : translateY(0);
+}
+
+.folio-item:hover .folio-item__project-link {
+    opacity    : 1;
+    visibility : visible;
+    transform  : translateX(0);
+}
+
+
+/* ------------------------------------------------------------------- 
+ * responsive:
+ * works
+ * ------------------------------------------------------------------- */
+ @media screen and (max-width: 800px) {
+    .folio-item__title {
+        font-size : calc(var(--text-size) * 0.8889);
+    }
+
+    .folio-item__cat {
+        font-size : calc(var(--text-size) * 0.7778);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .folio-list .folio-brick {
+        float : none;
+        width : auto;
+    }
+
+    .folio-item__title {
+        font-size : var(--text-size);
+    }
+
+    .folio-item__cat {
+        font-size : 1.2rem;
+    }
+}
+
 
 /* ===================================================================
  * # SITE CONTENT
@@ -5372,23 +5597,4 @@ body.search-is-visible .s-header__search-inner {
     .comment-respond form {
         padding-top : var(--vspace-1);
     }
-}
-
-/* ------------------------------------------------------------------- 
- * ## portfolio list
- * ------------------------------------------------------------------- */
-.folio-list {
-    margin-top : calc(var(--vspace-1) * -5.5);
-}
-
-.folio-list .brick {
-    float   : left;
-    width   : 50%;
-    padding : 0;
-    margin  : 0;
-}
-
-.folio-item {
-    overflow : hidden;
-    position : relative;
 }

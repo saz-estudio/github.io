@@ -234,8 +234,67 @@
             });
         }
 
-    }; // end ssAnimateOnScroll
+    }; // end ssAnimateBricks
 
+   /* animate folio-list elements if in viewport
+    * ------------------------------------------------------ */
+       const ssAnimateFolioOnScroll = function() {
+
+        const blocks = document.querySelectorAll('[data-animate-folio-block]');
+        if (!blocks) return;
+
+        window.addEventListener('scroll', animateOnScroll);
+
+        function animateOnScroll() {
+
+            let scrollY = window.pageYOffset;
+
+            blocks.forEach(function(current) {
+
+                const viewportHeight = window.innerHeight;
+                const triggerTop = (current.getBoundingClientRect().top + window.scrollY + (viewportHeight * .2)) - viewportHeight;
+                const blockHeight = current.offsetHeight;
+                const blockSpace = triggerTop + blockHeight;
+                const inView = scrollY > triggerTop && scrollY <= blockSpace;
+                const isAnimated = current.classList.contains('ss-animated');
+
+                if (inView && (!isAnimated)) {
+
+                    anime({
+                        targets: current.querySelectorAll('[data-animate-folio-el]'),
+                        opacity: [0, 1],
+                        translateY: [100, 0],
+                        delay: anime.stagger(200, {start: 200}),
+                        duration: 800,
+                        easing: 'easeInOutCubic',
+                        begin: function(anim) {
+                            current.classList.add('ss-animated');
+                        }
+                    });
+                }
+            });
+        }
+    }; // end ssAnimateFolioOnScroll
+
+   /* folio bricks
+    * ------------------------------------------------------ */
+       const ssAnimateFolioBricks = function() {
+
+        const containerBricks = document.querySelector('.bricks');
+        if (!containerBricks) return;
+
+        imagesLoaded(containerBricks, function() {
+
+            const msnry = new Masonry(containerBricks, {
+                itemSelector: '.brick',
+                columnWidth: '.brick',
+                percentPosition: true,
+                resize: true
+            });
+
+        });
+
+    }; // end ssAnimateFolioBricks
 
    /* swiper
     * ------------------------------------------------------ */ 
@@ -357,6 +416,8 @@
         ssSearch();
         ssMasonry();
         ssAnimateBricks();
+        ssAnimateFolioOnScroll();
+        ssAnimateFolioBricks();
         ssSwiper();
         ssAlertBoxes();
         ssBackToTop();
