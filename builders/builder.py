@@ -3,17 +3,10 @@ import pandas as pd
 
 root = "Productos/"
 
-f = open("templates/index_template.html", "r")
-index_template = f.read()
-
-f = open("templates/index_product_template.html", "r")
-index_product_template = f.read()
-
-f = open("templates/view_template.html", "r")
-view_template = f.read()
-
-f = open("templates/view_image_template.html", "r")
-view_image_template = f.read()
+index_template = open("templates/index.html", "r").read()
+index_product_template = open("templates/index_product.html", "r").read()
+view_template = open("templates/product_view.html", "r").read()
+view_image_template = open("templates/product_view_image.html", "r").read()
 
 
 def GetImages(image_name):
@@ -22,19 +15,19 @@ def GetImages(image_name):
     return all_images
 
 
-def RenameImages(image_name, new_name_base):
+def RenameImages(image_name):
     """Asumes that path contains the images to rename"""
     path = root + image_name
     for index, image in enumerate(GetImages(image_name)):
         old_name = path + "/" + image
         unused, file_extension = os.path.splitext(old_name)
-        new_name = path + "/" + new_name_base + str(index) + file_extension 
+        new_name = path + "/" + image_name + str(index) + file_extension 
         print("Old:", old_name)
         print("New:", new_name)
         os.rename(old_name, new_name)
 
 
-def BuildViewHtml(image_name, descripcion, fecha):
+def BuildProductViewHtml(image_name, descripcion, fecha):
     all_views = ""
     for index, image in enumerate(GetImages(image_name)):
         full_name = image_name + "/" + image
@@ -50,9 +43,10 @@ def BuildViewHtml(image_name, descripcion, fecha):
 
 
 
-def GenerateIndexProduct(nombre, image_name, precio, dimensiones):
+def BuildIndexProduct(nombre, precio, dimensiones):
+    first_image_path = GetImages(nombre)[0]
     return "\n" + index_product_template.format(PLACEHOLDER_FOR_NAME=nombre,
-        PLACEHOLDER_FOR_IMG=image_name,
+        PLACEHOLDER_FOR_IMG=first_image_path,
         PLACEHOLDER_FOR_PRECIO=precio,
         PLACEHOLDER_FOR_DIMENSIONS=dimensiones)
 
@@ -65,7 +59,7 @@ def BuildIndexHtml(placeholder_for_products):
 
 def BuildSite():
     df = pd.read_excel(root + "Productos.xlsx")
-    placeholder_for_products = ""
+    products = ""
     for index, row in df.iterrows():
         print("Row:", row)
         nombre = row["Nombre"]
@@ -75,20 +69,11 @@ def BuildSite():
         fecha = row["Fecha"]
         print(nombre, precio, dimensiones, fecha, descripcion)
 
-        # Task 1
-        print("Task 1")
-        RenameImages(nombre, nombre)
+        RenameImages(nombre)
+        BuildProductViewHtml(nombre, descripcion, fecha)
+        products += BuildIndexProduct(nombre, precio, dimensiones)
 
-        # Task 2
-        print("Task 2")
-        BuildViewHtml(nombre, descripcion, fecha)
-
-        # Task 3
-        print("Task 3")
-        image_name = GetImages(nombre)[0]
-        placeholder_for_products += GenerateIndexProduct(nombre, image_name, precio, dimensiones)
-
-    BuildIndexHtml(placeholder_for_products)
+    BuildIndexHtml(products)
 
 
 BuildSite()
